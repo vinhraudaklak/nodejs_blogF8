@@ -1,10 +1,12 @@
+// import data form mongoBB
 const Course = require("../models/Course");
 
 class SiteController {
 	// [GET] /
 	index(req, res) {
 		// find gửi yêu cầu đến model.
-		Course.find({}).lean()
+		Course.find({})
+			.lean()
 			.then((courses) =>
 				res.render("home", {
 					courses,

@@ -2,7 +2,13 @@ const mongoose = require("mongoose");
 
 async function connect() {
 	try {
-		await mongoose.connect("mongodb://localhost:27017/learn_F8_education_dev");
+		await mongoose.connect(
+			"mongodb://localhost:27017/learn_F8_education_dev",
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+			}
+		);
 		console.log("✅ MongoDB connected successfully!");
 	} catch (error) {
 		console.error("❌ MongoDB connection failed:", error.message);
