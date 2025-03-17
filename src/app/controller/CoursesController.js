@@ -22,11 +22,27 @@ class NewsController {
 	store(req, res) {
 		// 	course.save() => lưu dữ liệu vào MongoDB bằng Mongoose
 		const course = new Course(req.body);
-		course.save()
-			.then( () => res.redirect('/'))
-			.catch( err => {
-
-			})
+		course
+			.save()
+			.then(() => res.redirect("/"))
+			.catch((err) => {});
+	}
+	// [GET] /course/:id/edit
+	edit(req, res, next) {
+		Course.findById(req.params.id)
+			.lean()
+			.then((course) =>
+				res.render("courses/edit", {
+					course,
+				})
+			)
+			.catch(next);
+	}
+	// [PUT] /course/:id
+	updated(req, res, next) {
+		Course.updateOne({ _id: req.params.id }, req.body)
+			.then(() => res.redirect("/me/stored/courses"))
+			.catch(next);
 	}
 }
 

@@ -1,2 +1,9 @@
-@import 'variables';
+@import "variables";
 
+.user-avatar {
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-left: 16px;
+}
