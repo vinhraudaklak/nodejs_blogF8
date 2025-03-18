@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var slug = require("mongoose-slug-generator");
+const slug = require("mongoose-slug-generator");
 
 mongoose.plugin(slug);
 // Mongoose, Schema giúp định nghĩa cấu trúc dữ liệu trong MongoDB,
@@ -8,11 +8,11 @@ const Schema = mongoose.Schema;
 const Course = new Schema(
 	{
 		name: { type: String, required: true },
-		description: { type: String, trim: true, default: "" },
-		videoId: { type: String },
+		description: { type: String },
+		videoId: { type: String, required: true  },
+		image: { type: String, required: true }, 
 		level: { type: String },
-		image: { type: String, required: true },
-		slug: { type: String, slug: "name", unique: true }, // unique => chỉ tồn tại duy nhất
+		slug: { type: String, slug: "name"}, // unique => chỉ tồn tại duy nhất
 	},
 	{ timestamps: true }
 );

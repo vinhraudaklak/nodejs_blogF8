@@ -20,12 +20,17 @@ class NewsController {
 	}
 	// [POST] /courses/store => handle data
 	store(req, res) {
-		// 	course.save() => lưu dữ liệu vào MongoDB bằng Mongoose
+		// Tạo một instance mới từ model Course
 		const course = new Course(req.body);
+
+		// Lưu vào MongoDB
 		course
 			.save()
 			.then(() => res.redirect("/"))
-			.catch((err) => {});
+			.catch((err) => {
+				console.error("Lỗi khi lưu khóa học:", err);
+				res.status(500).send("Lỗi server");
+			});
 	}
 	// [GET] /course/:id/edit
 	edit(req, res, next) {
@@ -42,6 +47,12 @@ class NewsController {
 	updated(req, res, next) {
 		Course.updateOne({ _id: req.params.id }, req.body)
 			.then(() => res.redirect("/me/stored/courses"))
+			.catch(next);
+	}
+	// [DELETE /course/:id]
+	destroy(req, res, next) {
+		Course.deleteOne({ _id: req.params.id })
+			.then(() => res.redirect("back"))
 			.catch(next);
 	}
 }
